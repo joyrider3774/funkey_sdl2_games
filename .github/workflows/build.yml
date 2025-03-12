@@ -125,7 +125,7 @@ jobs:
       - if: ${{ matrix.buildtype != 'playdate'}}
         name: Copy icon other games
         run: |
-          cp metadata/funkey-s/icon.png ./opk/icon.png
+          cp tmp/metadata/funkey-s/icon.png ./opk/icon.png
           
       - if: ${{ matrix.buildtype == 'playdate'}}
         name: create game.sh playdate games
