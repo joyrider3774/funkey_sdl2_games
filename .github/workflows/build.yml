@@ -139,7 +139,7 @@ jobs:
           chmod +x "./opk/game.sh"
 
       - if: ${{ matrix.output == 'znax'}}
-        name: create game.sh for ${{(matrix.output}} game
+        name: create game.sh for ${{matrix.output}} game
         run: |
           echo "#!/bin/sh" > "./opk/game.sh"
           echo "export LD_LIBRARY_PATH=\"./lib:./lib/directfb-1.7-7:./lib/directfb-1.7-7/systems:./lib/directfb-1.7-7/wm:./lib/directfb-1.7-7/interfaces/IDirectFBFont:./lib/directfb-1.7-7/interfaces/IDirectFBImageProvider:./lib/directfb-1.7-7/interfaces/IDirectFBVideoProvider:./lib/directfb-1.7-7/inputdrivers:./lib/directfb-1.7-7/gfxdrivers:$LD_LIBRARY_PATH\"" >> "./opk/game.sh"
@@ -148,7 +148,7 @@ jobs:
           chmod +x "./opk/game.sh"
           
       - if: ${{ matrix.output == 'retrotime' }}
-        name: create game.sh for ${{(matrix.output}} game
+        name: create game.sh for ${{matrix.output}} game
         run: |
           echo "#!/bin/sh" > "./opk/game.sh"
           echo "export LD_LIBRARY_PATH=\"./lib:./lib/directfb-1.7-7:./lib/directfb-1.7-7/systems:./lib/directfb-1.7-7/wm:./lib/directfb-1.7-7/interfaces/IDirectFBFont:./lib/directfb-1.7-7/interfaces/IDirectFBImageProvider:./lib/directfb-1.7-7/interfaces/IDirectFBVideoProvider:./lib/directfb-1.7-7/inputdrivers:./lib/directfb-1.7-7/gfxdrivers:$LD_LIBRARY_PATH\"" >> "./opk/game.sh"
