@@ -145,10 +145,10 @@ jobs:
           
       - name: Copy SDL2 and Directfb libs and files
         run: |
-          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/*SDL2* /opk/lib/
-          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/*directfb* /opk/lib/
-          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/directfb-1.7-7 /opk/lib/
-          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/dfb* /opk/bin
+          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/*SDL2* ./opk/lib/
+          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/*directfb* ./opk/lib/
+          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/directfb-1.7-7 ./opk/lib/
+          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/dfb* ./opk/bin
           
       - name: create opk
         run: |
