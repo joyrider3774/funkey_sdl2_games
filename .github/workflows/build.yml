@@ -110,7 +110,7 @@ jobs:
         run: |
           echo "[Desktop Entry]" > "./opk/${{ matrix.output }}.funkey-s.desktop"
           echo "Name=${{ matrix.output }}" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
-          echo "Comment${{ matrix.output }}" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
+          echo "Comment=${{ matrix.output }}" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
           echo "Terminal=false" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
           echo "Type=Application" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
           echo "Exec=game.sh" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
