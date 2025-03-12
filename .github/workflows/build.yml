@@ -1,0 +1,161 @@
+# Controls when the workflow will run
+on:
+  # Allows you to run this workflow manually ftarget the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: ${{ matrix.output }}
+    strategy:
+      matrix:
+        include:
+          - { buildtype: 'playdate', repo: 'joyrider3774/formula1_playdate',            output: 'formula_1',   binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: 'FORMULA1_PLAYDATE_CODEKEY', codesecretfile: 'src/codekey.h', makecommand: '"SRC_C_DIR=src/srcgame src/srcgame/scoresubmit"'}
+          - { buildtype: 'playdate', repo: 'joyrider3774/checkers_playdate',            output: 'checkers',    binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CPP_BUILD=1'}
+          - { buildtype: 'playdate', repo: 'joyrider3774/dynamate_playdate',            output: 'dynamate',    binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CPP_BUILD=1'}
+          - { buildtype: 'playdate', repo: 'joyrider3774/blockdude_playdate',           output: 'blockdude',   binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: ''}
+          - { buildtype: 'playdate', repo: 'joyrider3774/puztrix_playdate',             output: 'puztrix',     binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: 'PUZTRIX_PLAYDATE_CODEKEY',  codesecretfile: 'src/codekey.h', makecommand: '"SRC_C_DIR=src/srcgame/scoresubmit/src/playdate/C_API/scoresubmit" "SRC_CPP_DIR=src/srcgame src/srcstub/sdl_rotate src/srcstub/gfx_primitives_surface src/srcstub/bump src/srcstub/bump/src src/srcstub src/srcstub/pd_api"'}
+          - { buildtype: 'playdate', repo: 'joyrider3774/puzzleland_playdate',          output: 'puzzleland',  binarycopy: '',          assetscopy: '',            downloadsecret: 'PUZZLELAND_MUSIC', downloadsecretcmd: 'unzip download && mv music Source/music', codesecret: '',                          codesecretfile: '',              makecommand: '"SRC_C_DIR=src/srcgame src/srcgame/gameobjects src/srcgame/gamestates"'}
+          - { buildtype: 'playdate', repo: 'joyrider3774/rubido_playdate',              output: 'rubido',      binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: ''}
+          - { buildtype: 'playdate', repo: 'joyrider3774/waternet_playdate',            output: 'waternet',    binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: ''}
+          - { buildtype: 'vanilla',  repo: 'joyrider3774/Znax',                         output: 'znax',        binarycopy: 'znax',      assetscopy: 'znaxfs',      downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CXX=/opt/funkey-sdk/bin/arm-funkey-linux-musleabihf-g++ NOX11=1 SDL2CONFIG=/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config LDLIBS="`/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lSDL2 -lSDL2_gfx -lpthread -lstdc++" "DEFINES=-DFUNKEY"'}          
+    runs-on: ubuntu-latest
+    steps:
+      - name: get SDK
+        uses: wei/wget@v1
+        with:
+          args: -O funkey-sdk.tar.gz funkey-sdk-sdl2.tar.gz
+
+      - name: setup SDK
+        run: |
+          tar -xzvf ./funkey-sdk.tar.gz
+          sudo mv ./funkey-sdk /opt/
+          cd /opt/funkey-sdk
+          ./relocate-sdk.sh
+
+      - if: ${{ matrix.buildtype == 'playdate'}}
+        name: Checkout Playdate SDL2 Api Sources
+        uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+          repository: 'joyrider3774/Playdate_Api_SDL2'
+
+      - name: Checkout game sources sources
+        uses: actions/checkout@v4
+        with:
+          submodules: 'true'
+          repository: ${{matrix.repo}}
+          path: tmp
+      
+
+      - if: ${{ (matrix.codesecret != '') && (matrix.codesecretfile != '')}}
+        name: Setup Secret codekey.h File
+        env: 
+          SECRET: ${{secrets[matrix.codesecret] }}
+        run : |
+          echo "$SECRET" | base64 --decode >  tmp/${{matrix.codesecretfile}}
+       
+      - if: ${{ matrix.buildtype== 'playdate'}}
+        name: move things to correct directories playdate
+        run: |
+          rm -rf ./src/srcgame
+          mv tmp/src ./src/srcgame
+          cp -Rf tmp/Source/. ./Source
+     
+      - if: ${{ (matrix.downloadsecret != '') && (matrix.downloadsecretcmd != '')}}
+        name: run secret download
+        uses: wei/wget@v1
+        with:
+          args: -O download ${{ secrets[matrix.downloadsecret] }}
+      
+      - if: ${{ (matrix.downloadsecret != '') && (matrix.downloadsecretcmd != '')}}
+        name: run secret download cmd
+        run: |
+          ${{matrix.downloadsecretcmd}}
+          rm download
+     
+      - if: ${{ matrix.buildtype == 'playdate'}}   
+        name: Build Game Playdate
+        run: |
+          make PLATFORM=funkey-s ${{matrix.makecommand }}
+       
+      - if: ${{ matrix.buildtype == 'vanilla'}}   
+        name: Build Game Vanilla
+        run: |
+          cd tmp
+          make ${{matrix.makecommand }}
+      
+          
+      - name: prepare opk directory
+        run: |
+          mkdir opk
+          mddir opk/bin
+          mkdir opk/libs
+     
+      - if: ${{ matrix.buildtype == 'playdate'}}
+        name: Move Source Folder
+        run: |
+          mv Source "./opk/"
+           
+      - if: ${{ matrix.binarycopy != ''}}
+        name: copy binary
+        run: |
+          cp "tmp/${{ matrix.binarycopy}}" "./opk/${{ matrix.binarycopy }}"
+      
+      - if: ${{ matrix.assetscopy != ''}}
+        name: copy assets
+        run: |
+          cp -Rf "tmp/${{ matrix.assetscopy}}" "./opk/"
+      
+      - name: Prepare desktopfile
+        run: |
+          echo "[Desktop Entry]" > "./opk/${{ matrix.output }}.funkey-s.desktop"
+          echo "Name=${{ matrix.output }}" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
+          echo "Comment${{ matrix.output }}" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
+          echo "Terminal=false" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
+          echo "Type=Application" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
+          echo "Exec=game.sh" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
+          echo "Icon=icon" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
+          echo "Categories=games" >> "./opk/${{ matrix.output }}.funkey-s.desktop"
+      
+      - if: ${{ matrix.buildtype == 'playdate'}}
+        name: Copy icon playdate games
+        run: |
+          cp ./opk/metadata/icon.png ./opk/icon.png
+      
+      - if: ${{ matrix.buildtype != 'playdate'}}
+        name: Copy icon other games
+        run: |
+          cp metadata/funkey-s/icon.png ./opk/icon.png
+          
+      - if: ${{ matrix.buildtype == 'playdate'}}
+        name: create game.sh playdate games
+        run: |
+          echo "#!/bin/sh" > "./opk/game.sh"
+          echo "export LD_LIBRARY_PATH=\"/usr/lib:./lib/directfb-1.7-7:./lib/directfb-1.7-7/systems:./lib/directfb-1.7-7/wm:./lib/directfb-1.7-7/interfaces/IDirectFBFont:./lib/directfb-1.7-7/interfaces/IDirectFBImageProvider:./lib/directfb-1.7-7/interfaces/IDirectFBVideoProvider:./lib/directfb-1.7-7/inputdrivers:./lib/directfb-1.7-7/gfxdrivers\"" >> "./opk/game.sh"
+          echo "export PATH=\"./bin:$PATH\"" >> "./opk/game.sh"
+          echo "${{ matrix.output }} -f" >> "./opk/game.sh"
+          chmod +x "./opk/game.sh"
+
+      - if: ${{ matrix.output == 'znax'}}
+        name: create game.sh znax game
+        run: |
+          echo "#!/bin/sh" > "./opk/game.sh"
+          echo "${{ matrix.output }} -r" >> "./opk/game.sh"
+          chmod +x "./opk/game.sh"
+          
+      - name: Copy SDL2 and Directfb libs and files
+        run: |
+          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/*SDL2* /opk/lib
+          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/*directfb* /opk/lib
+          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/directfb-1.7-7 /opk/lib/
+          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/dfb* /opk/bin
+          
+      - name: create opk
+        run: |
+          mksquashfs ./opk ${{ matrix.output }}.opk -all-root -noappend -no-exports -no-xattrs
+    
+      - name: Store build
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.output }} - Funkey-s
+          path: ${{ matrix.output }}.opk
