@@ -18,8 +18,7 @@ jobs:
           - { buildtype: 'playdate', repo: 'joyrider3774/rubido_playdate',              output: 'rubido',      binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: ''}
           - { buildtype: 'playdate', repo: 'joyrider3774/waternet_playdate',            output: 'waternet',    binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: ''}
           - { buildtype: 'playdate', repo: 'joyrider3774/retrotime_playdate',           output: 'retrotime',   binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: 'RETROTIME_PLAYDATE_CODEKEY',codesecretfile: 'src/codekey.h', makecommand: '"SRC_C_DIR=src/srcgame src/srcgame/scoresubmit src/srcgame/games"'}
-          - { buildtype: 'vanilla',  repo: 'joyrider3774/Znax',                         output: 'znax',        binarycopy: 'znax',      assetscopy: 'znaxfs',      downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CXX=/opt/funkey-sdk/bin/arm-funkey-linux-musleabihf-g++ NOX11=1 SDL2CONFIG=/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config LDLIBS="`/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lSDL2 -lSDL2_gfx -lpthread -lstdc++" "DEFINES=-DFUNKEY"'}          
-        #  - { buildtype: 'vanilla',  repo: 'joyrider3774/RetroTime',                    output: 'retrotime',   binarycopy: 'retrotime', assetscopy: 'retrotimefs', downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CXX=/opt/funkey-sdk/bin/arm-funkey-linux-musleabihf-g++ NOX11=1 SDL2CONFIG=/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config LDLIBS="`/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lSDL2 -lSDL2_gfx -lpthread -lstdc++" "DEFINES=-DFUNKEY" FULLMENUTRANSPARANCY=0'}
+          - { buildtype: 'vanilla',  repo: 'joyrider3774/Znax',                         output: 'znax',        binarycopy: 'znax',      assetscopy: 'znaxfs',      downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CXX=/opt/funkey-sdk/bin/arm-funkey-linux-musleabihf-g++ NOX11=1 SDL2CONFIG=/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config LDLIBS="`/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lSDL2 -lSDL2_gfx -lpthread -lstdc++" "DEFINES=-DFUNKEY"'}                  
     runs-on: ubuntu-latest
     steps:
       - name: get SDK
@@ -135,6 +134,7 @@ jobs:
           echo "#!/bin/sh" > "./opk/game.sh"
           echo "export LD_LIBRARY_PATH=\"./lib:./lib/directfb-1.7-7:./lib/directfb-1.7-7/systems:./lib/directfb-1.7-7/wm:./lib/directfb-1.7-7/interfaces/IDirectFBFont:./lib/directfb-1.7-7/interfaces/IDirectFBImageProvider:./lib/directfb-1.7-7/interfaces/IDirectFBVideoProvider:./lib/directfb-1.7-7/inputdrivers:./lib/directfb-1.7-7/gfxdrivers:$LD_LIBRARY_PATH\"" >> "./opk/game.sh"
           echo "export PATH=\"./bin:$PATH\"" >> "./opk/game.sh"
+          echo "sleep 1"  >> "./opk/game.sh" 
           echo "./game -f" >> "./opk/game.sh"
           chmod +x "./opk/game.sh"
 
@@ -144,18 +144,10 @@ jobs:
           echo "#!/bin/sh" > "./opk/game.sh"
           echo "export LD_LIBRARY_PATH=\"./lib:./lib/directfb-1.7-7:./lib/directfb-1.7-7/systems:./lib/directfb-1.7-7/wm:./lib/directfb-1.7-7/interfaces/IDirectFBFont:./lib/directfb-1.7-7/interfaces/IDirectFBImageProvider:./lib/directfb-1.7-7/interfaces/IDirectFBVideoProvider:./lib/directfb-1.7-7/inputdrivers:./lib/directfb-1.7-7/gfxdrivers:$LD_LIBRARY_PATH\"" >> "./opk/game.sh"
           echo "export PATH=\"./bin:$PATH\"" >> "./opk/game.sh"
+          echo "sleep 1"  >> "./opk/game.sh" 
           echo "./${{ matrix.output }} -r" >> "./opk/game.sh"
           chmod +x "./opk/game.sh"
-          
-      - if: ${{ matrix.output == 'retrotime' }}
-        name: create game.sh for ${{matrix.output}} game
-        run: |
-          echo "#!/bin/sh" > "./opk/game.sh"
-          echo "export LD_LIBRARY_PATH=\"./lib:./lib/directfb-1.7-7:./lib/directfb-1.7-7/systems:./lib/directfb-1.7-7/wm:./lib/directfb-1.7-7/interfaces/IDirectFBFont:./lib/directfb-1.7-7/interfaces/IDirectFBImageProvider:./lib/directfb-1.7-7/interfaces/IDirectFBVideoProvider:./lib/directfb-1.7-7/inputdrivers:./lib/directfb-1.7-7/gfxdrivers:$LD_LIBRARY_PATH\"" >> "./opk/game.sh"
-          echo "export PATH=\"./bin:$PATH\"" >> "./opk/game.sh"
-          echo "./${{ matrix.output }}" >> "./opk/game.sh"
-          chmod +x "./opk/game.sh"
-               
+                   
       - name: Copy SDL2 and Directfb libs and files
         run: |
           cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/lib++dfb** ./opk/lib/
