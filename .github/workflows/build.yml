@@ -23,7 +23,7 @@ jobs:
       - name: get SDK
         uses: wei/wget@v1
         with:
-          args: -O funkey-sdk.tar.gz funkey-sdk-sdl2.tar.gz
+          args: -O funkey-sdk.tar.gz https://github.com/joyrider3774/sdks/releases/download/v1.0/funkey-sdk-sdl2.tar.gz
 
       - name: setup SDK
         run: |
