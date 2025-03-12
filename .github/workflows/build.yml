@@ -23,8 +23,8 @@ jobs:
     steps:
       - name: get ffmpeg
         run: |
-          apt update
-          apt install ffmpeg
+          sudo apt update
+          sudo apt install ffmpeg
           
       - name: get SDK
         uses: wei/wget@v1
