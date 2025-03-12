@@ -133,7 +133,7 @@ jobs:
           echo "#!/bin/sh" > "./opk/game.sh"
           echo "export LD_LIBRARY_PATH=\"./lib:./lib/directfb-1.7-7:./lib/directfb-1.7-7/systems:./lib/directfb-1.7-7/wm:./lib/directfb-1.7-7/interfaces/IDirectFBFont:./lib/directfb-1.7-7/interfaces/IDirectFBImageProvider:./lib/directfb-1.7-7/interfaces/IDirectFBVideoProvider:./lib/directfb-1.7-7/inputdrivers:./lib/directfb-1.7-7/gfxdrivers:$LD_LIBRARY_PATH\"" >> "./opk/game.sh"
           echo "export PATH=\"./bin:$PATH\"" >> "./opk/game.sh"
-          echo "${{ matrix.output }} -f" >> "./opk/game.sh"
+          echo "./game -f" >> "./opk/game.sh"
           chmod +x "./opk/game.sh"
 
       - if: ${{ matrix.output == 'znax'}}
@@ -142,11 +142,13 @@ jobs:
           echo "#!/bin/sh" > "./opk/game.sh"
           echo "export LD_LIBRARY_PATH=\"./lib:./lib/directfb-1.7-7:./lib/directfb-1.7-7/systems:./lib/directfb-1.7-7/wm:./lib/directfb-1.7-7/interfaces/IDirectFBFont:./lib/directfb-1.7-7/interfaces/IDirectFBImageProvider:./lib/directfb-1.7-7/interfaces/IDirectFBVideoProvider:./lib/directfb-1.7-7/inputdrivers:./lib/directfb-1.7-7/gfxdrivers:$LD_LIBRARY_PATH\"" >> "./opk/game.sh"
           echo "export PATH=\"./bin:$PATH\"" >> "./opk/game.sh"
-          echo "${{ matrix.output }} -r" >> "./opk/game.sh"
+          echo "./${{ matrix.output }} -r" >> "./opk/game.sh"
           chmod +x "./opk/game.sh"
           
       - name: Copy SDL2 and Directfb libs and files
         run: |
+          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/lib++dfb** ./opk/lib/
+          cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/libvorbisidec* ./opk/lib/
           cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/libts* ./opk/lib/
           cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/*SDL2* ./opk/lib/
           cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/*fusion* ./opk/lib/
