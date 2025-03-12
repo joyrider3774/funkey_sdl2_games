@@ -21,6 +21,11 @@ jobs:
           - { buildtype: 'vanilla',  repo: 'joyrider3774/Znax',                         output: 'znax',        binarycopy: 'znax',      assetscopy: 'znaxfs',      downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CXX=/opt/funkey-sdk/bin/arm-funkey-linux-musleabihf-g++ NOX11=1 SDL2CONFIG=/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config LDLIBS="`/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lSDL2 -lSDL2_gfx -lpthread -lstdc++" "DEFINES=-DFUNKEY"'}                  
     runs-on: ubuntu-latest
     steps:
+      - name: get ffmpeg
+        run: |
+          apt update
+          apt install ffmpeg
+          
       - name: get SDK
         uses: wei/wget@v1
         with:
@@ -92,6 +97,12 @@ jobs:
           mkdir opk/bin
           mkdir opk/lib
      
+      - if: ${{ matrix.buildtype == 'playdate'}}
+        name: replace wav with converted ogg files
+        run: |
+          find Source/. -name "*.wav" -type f -delete
+          cp -r assets/. ./Source/
+        
       - if: ${{ matrix.buildtype == 'playdate'}}
         name: copy Source Folder
         run: |
