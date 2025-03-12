@@ -89,7 +89,7 @@ jobs:
         run: |
           mkdir opk
           mkdir opk/bin
-          mkdir opk/libs
+          mkdir opk/lib
      
       - if: ${{ matrix.buildtype == 'playdate'}}
         name: Move Source Folder
