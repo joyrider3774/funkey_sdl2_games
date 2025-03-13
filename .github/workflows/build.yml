@@ -135,11 +135,17 @@ jobs:
         run: |
           cp ./opk/metadata/icon.png ./opk/icon.png
       
-      - if: ${{ matrix.buildtype != 'playdate'}}
+      - if: ${{ (matrix.buildtype != 'playdate') && (matrix.output != 'cglpsdl2') }}
         name: Copy icon other games
         run: |
           cp tmp/metadata/funkey-s/icon.png ./opk/icon.png
-          
+
+      - if: ${{ (matrix.output == 'cglpsdl2') }}
+        name: Copy icon other games
+        run: |
+          cp tmp/metadata/icon.png ./opk/icon.png
+            
+      
       - if: ${{ matrix.buildtype == 'playdate'}}
         name: create game.sh playdate games
         run: |
