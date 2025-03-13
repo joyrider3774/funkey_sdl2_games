@@ -146,7 +146,7 @@ jobs:
           cp tmp/metadata/icon.png ./opk/icon.png
             
       - name: create game.sh general stuff
-        run |
+        run: |
           echo "#!/bin/sh" > "./opk/game.sh"
           echo "export LD_LIBRARY_PATH=\"./lib:./lib/directfb-1.7-7:./lib/directfb-1.7-7/systems:./lib/directfb-1.7-7/wm:./lib/directfb-1.7-7/interfaces/IDirectFBFont:./lib/directfb-1.7-7/interfaces/IDirectFBImageProvider:./lib/directfb-1.7-7/interfaces/IDirectFBVideoProvider:./lib/directfb-1.7-7/inputdrivers:./lib/directfb-1.7-7/gfxdrivers:\$LD_LIBRARY_PATH\"" >> "./opk/game.sh"
           echo "export PATH=\"./bin:\$PATH\"" >> "./opk/game.sh"
