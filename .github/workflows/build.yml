@@ -145,29 +145,32 @@ jobs:
         run: |
           cp tmp/metadata/icon.png ./opk/icon.png
             
-      
-      - if: ${{ matrix.buildtype == 'playdate'}}
-        name: create game.sh playdate games
-        run: |
+      - name: create game.sh general stuff
+        run |
           echo "#!/bin/sh" > "./opk/game.sh"
           echo "export LD_LIBRARY_PATH=\"./lib:./lib/directfb-1.7-7:./lib/directfb-1.7-7/systems:./lib/directfb-1.7-7/wm:./lib/directfb-1.7-7/interfaces/IDirectFBFont:./lib/directfb-1.7-7/interfaces/IDirectFBImageProvider:./lib/directfb-1.7-7/interfaces/IDirectFBVideoProvider:./lib/directfb-1.7-7/inputdrivers:./lib/directfb-1.7-7/gfxdrivers:\$LD_LIBRARY_PATH\"" >> "./opk/game.sh"
           echo "export PATH=\"./bin:\$PATH\"" >> "./opk/game.sh"
           echo "export export D_ARGS=\"module-dir=./lib/directfb-1.7-7,system=fbdev,fbdev=/dev/fb0,no-linux-input-grab,no-cursor\"" >> "./opk/game.sh"
           echo "unset AUDIODEV" >> "./opk/game.sh"
+ 
+      - if: ${{ matrix.buildtype == 'playdate'}}
+        name: continue create game.sh playdate games
+        run: |
           echo "./game -f" >> "./opk/game.sh"
           chmod +x "./opk/game.sh"
 
       - if: ${{ matrix.output == 'znax'}}
-        name: create game.sh for ${{matrix.output}} game
+        name: continue create game.sh for ${{matrix.output}} game
         run: |
-          echo "#!/bin/sh" > "./opk/game.sh"
-          echo "export LD_LIBRARY_PATH=\"./lib:./lib/directfb-1.7-7:./lib/directfb-1.7-7/systems:./lib/directfb-1.7-7/wm:./lib/directfb-1.7-7/interfaces/IDirectFBFont:./lib/directfb-1.7-7/interfaces/IDirectFBImageProvider:./lib/directfb-1.7-7/interfaces/IDirectFBVideoProvider:./lib/directfb-1.7-7/inputdrivers:./lib/directfb-1.7-7/gfxdrivers:\$LD_LIBRARY_PATH\"" >> "./opk/game.sh"
-          echo "export PATH=\"./bin:\$PATH\"" >> "./opk/game.sh"
-          echo "export export D_ARGS=\"module-dir=./lib/directfb-1.7-7,system=fbdev,fbdev=/dev/fb0,no-linux-input-grab,no-cursor\"" >> "./opk/game.sh"
-          echo "unset AUDIODEV" >> "./opk/game.sh"
           echo "./${{ matrix.output }} -r" >> "./opk/game.sh"
           chmod +x "./opk/game.sh"
-                   
+
+      - if: ${{ matrix.output == 'cglpsdl2'}}
+        name: continue create game.sh for ${{matrix.output}} game
+        run: |
+          echo "./${{ matrix.output }} -f" >> "./opk/game.sh"
+          chmod +x "./opk/game.sh"
+
       - name: Copy SDL2 and Directfb libs and files
         run: |
           cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/lib++dfb** ./opk/lib/
