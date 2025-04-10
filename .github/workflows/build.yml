@@ -83,7 +83,7 @@ jobs:
       - if: ${{ matrix.buildtype == 'playdate'}}   
         name: Build Game Playdate
         run: |
-          make PLATFORM=funkey-s ${{matrix.makecommand }}
+          make PLATFORM=funkey-s DEFAULTSOURCEDIR=1 ${{matrix.makecommand }}
        
       - if: ${{ matrix.buildtype == 'vanilla'}}   
         name: Build Game Vanilla
