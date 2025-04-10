@@ -27,15 +27,6 @@ For example if you open `checkers - Funkey-s.zip` there will be an opk file insi
 ## Games
 Please see respective repo of each game to get more information about the games by clicking on the `Game Info` links
 
-## Blockdude (Playdate)
-![Blockdude Screenshot 1](https://raw.githubusercontent.com/joyrider3774/blockdude_playdate/main/metadata/screenshots/screenshot1.png) ![Blockdude Screenshot 2](https://raw.githubusercontent.com/joyrider3774/blockdude_playdate/main/metadata/screenshots/screenshot9.png)
-
-Blokdude is a remake of the well known TI Caluculator game from Brandon Sterner as well as the blockman game from Soleau Software. This version of the game is based on the GP2X port of blockdude i made over a decade ago.
-
-[Game Info](https://joyrider3774.github.io/blockdude_playdate) - [Download for Funkey / RG-Nano](https://github.com/joyrider3774/funkey_sdl2_games/releases/latest/download/blockdude.-.Funkey-s.zip)
-
----
-
 ## Checkers (Playdate)
 ![Checkers Screenshot 1](https://raw.githubusercontent.com/joyrider3774/checkers_playdate/main/metadata/screenshots/Checkers-screenshot1.gif) ![Checkers Screenshot 2](https://raw.githubusercontent.com/joyrider3774/checkers_playdate/main/metadata/screenshots/Checkers-screenshot5.png)
 
@@ -51,24 +42,6 @@ Checkers is the well known board game with four difficulties and a jump heuristi
 Dynamate is a puzzle game invented by Björn Kalzen and Jonas Norberg, a couple of years ago i contacted them to make a port for the gp2x handheld. This version is port of my gp2x version made to work with the Funkey / RG-Nano handheld.
 
 [Game Info](https://joyrider3774.github.io/dynamate_playdate) - [Download for Funkey / RG-Nano](https://github.com/joyrider3774/funkey_sdl2_games/releases/latest/download/dynamate.-.Funkey-s.zip)
-
----
-
-## Formula 1 Game & Watch (Playdate)
-![Formula 1 Screenshot 1](https://raw.githubusercontent.com/joyrider3774/formula1_playdate/main/metadata/screenshots/Formula%201%20Game%20%26%20Watch%20screenshot%201.png) ![Formula 1 Screenshot 2](https://raw.githubusercontent.com/joyrider3774/formula1_playdate/main/metadata/screenshots/Formula%201%20Game%20%26%20Watch%20screenshot%204.png)
-
-Formula 1 Game & Watch is a small, fictive formula 1 game & watch style lcd game with high score keeping. The Game was initially created over a decade ago for a small retrogame competition, after which it got ported to the gp2x. This version is based on the gp2x version but with added high score saving.
-
-[Game Info](https://joyrider3774.github.io/formula1_playdate) - [Download for Funkey / RG-Nano](https://github.com/joyrider3774/funkey_sdl2_games/releases/latest/download/formula_1.-.Funkey-s.zip)
-
----
-
-## Rubido (Playdate)
-![Rubido Screenshot 1](https://raw.githubusercontent.com/joyrider3774/rubido_playdate/main/metadata/screenshots/Rubido-screenshot3.gif) ![Rubido Screenshot 2](https://raw.githubusercontent.com/joyrider3774/rubido_playdate/main/metadata/screenshots/Rubido-screenshot6.png)
-
-Rubido is a little chinese checkers or solitaire game with four difficulties.
-
-[Game Info](https://joyrider3774.github.io/rubido_playdate) - [Download for Funkey / RG-Nano](https://github.com/joyrider3774/funkey_sdl2_games/releases/latest/download/rubido.-.Funkey-s.zip)
 
 ---
 
@@ -105,14 +78,4 @@ RetroTime is a game containing 8 retro based games playable in 3 game modes bein
 Waternet is a multiplatform puzzle game written for old consoles and handhelds like Game Boy (Color), Game Gear, Master System, Analogue Pocket and Mega Duck and now also Funkey / RG-Nano! It's a combination of the net and netslide games from the simon tatham's puzzle collection!
 
 [Game Info](https://joyrider3774.github.io/waternet_playdate) - [Download for Funkey / RG-Nano](https://github.com/joyrider3774/funkey_sdl2_games/releases/latest/download/waternet.-.Funkey-s.zip)
-
----
-
-## Znax
-<img src="https://raw.githubusercontent.com/joyrider3774/Znax/master/images/znaxscreenshot1.png" alt="Znax Screenshot 1" width="400"> <img src="https://raw.githubusercontent.com/joyrider3774/Znax/master/images/znaxscreenshot4.png" alt="Znax Screenshot 2" width="400">
-
-Znax is a cross platform puzzle / arcade game using SDL2 libraries. It has skin support and can be played using a keyboard, mouse, joypad or touchscreen. You select 4 of the same colored pieces forming a rectangle to gain scores and remove the pieces inside the rectangle!
-
-[Game Info](https://joyrider3774.github.io/Znax) - [Download for Funkey / RG-Nano](https://github.com/joyrider3774/funkey_sdl2_games/releases/latest/download/znax.-.Funkey-s.zip)
-
 
