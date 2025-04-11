@@ -23,7 +23,8 @@ jobs:
           - { buildtype: '32blit',   repo: 'ThePythonator/Super-Square-Bros',            runs-on: 'ubuntu-latest',   output: 'Super-Square-Bros',    binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',    makecommand: ''}
     runs-on: ${{ matrix.runs-on }}
     steps:
-      - name: get ffmpeg
+      - if: ${{ matrix.buildtype != '32blit'}}
+        name: get ffmpeg
         run: |
           sudo apt update
           sudo apt install ffmpeg
