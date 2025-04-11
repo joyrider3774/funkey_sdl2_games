@@ -51,6 +51,7 @@ jobs:
       - if: ${{ matrix.buildtype == '32blit'}}
         name: setup 32blit extras
         run: |
+          cd ${{runner.workspace}}
           python3 -m venv 32blit
           source ${{runner.workspace}}/32blit/bin/activate
           pip3 install setuptools
