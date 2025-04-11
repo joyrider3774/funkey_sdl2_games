@@ -9,18 +9,19 @@ jobs:
     strategy:
       matrix:
         include:
-          - { buildtype: 'playdate', repo: 'joyrider3774/formula1_playdate',            output: 'formula_1',   binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: 'FORMULA1_PLAYDATE_CODEKEY', codesecretfile: 'src/codekey.h', makecommand: '"SRC_C_DIR=src/srcgame src/srcgame/scoresubmit" SCREENRESX=320 SCREENRESY=240 SCALINGMODE=0'}
-          - { buildtype: 'playdate', repo: 'joyrider3774/checkers_playdate',            output: 'checkers',    binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CPP_BUILD=1 SCREENRESX=320 SCREENRESY=240 SCALINGMODE=0'}
-          - { buildtype: 'playdate', repo: 'joyrider3774/dynamate_playdate',            output: 'dynamate',    binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CPP_BUILD=1 SCREENRESX=320 SCREENRESY=240 SCALINGMODE=0'}
-          - { buildtype: 'playdate', repo: 'joyrider3774/blockdude_playdate',           output: 'blockdude',   binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: ''}
-          - { buildtype: 'playdate', repo: 'joyrider3774/puztrix_playdate',             output: 'puztrix',     binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: 'PUZTRIX_PLAYDATE_CODEKEY',  codesecretfile: 'src/codekey.h', makecommand: '"SRC_C_DIR=src/srcgame/scoresubmit/src/playdate/C_API/scoresubmit" "SRC_CPP_DIR=src/srcgame src/srcstub/sdl_rotate src/srcstub/gfx_primitives_surface src/srcstub/bump src/srcstub/bump/src src/srcstub src/srcstub/pd_api"'}
-          - { buildtype: 'playdate', repo: 'joyrider3774/puzzleland_playdate',          output: 'puzzleland',  binarycopy: '',          assetscopy: '',            downloadsecret: 'PUZZLELAND_MUSIC', downloadsecretcmd: 'unzip download && mv music Source/music', codesecret: '',                          codesecretfile: '',              makecommand: '"SRC_C_DIR=src/srcgame src/srcgame/gameobjects src/srcgame/gamestates" SCREENRESX=320 SCREENRESY=240 SCALINGMODE=0'}
-          - { buildtype: 'playdate', repo: 'joyrider3774/rubido_playdate',              output: 'rubido',      binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: ''}
-          - { buildtype: 'playdate', repo: 'joyrider3774/waternet_playdate',            output: 'waternet',    binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: ''}
-          - { buildtype: 'playdate', repo: 'joyrider3774/retrotime_playdate',           output: 'retrotime',   binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: 'RETROTIME_PLAYDATE_CODEKEY',codesecretfile: 'src/codekey.h', makecommand: '"SRC_C_DIR=src/srcgame src/srcgame/scoresubmit src/srcgame/games"'}
-          - { buildtype: 'vanilla',  repo: 'joyrider3774/Znax',                         output: 'znax',        binarycopy: 'znax',      assetscopy: 'znaxfs',      downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CXX=/opt/funkey-sdk/bin/arm-funkey-linux-musleabihf-g++ NOX11=1 SDL2CONFIG=/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config LDLIBS="`/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lSDL2 -lSDL2_gfx -lpthread -lstdc++" "DEFINES=-DFUNKEY"'}                  
-          - { buildtype: 'vanilla',  repo: 'joyrider3774/crisp-game-lib-portable-sdl',  output: 'cglpsdl2',    binarycopy: 'cglpsdl2',  assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: '-f src/cglpSDL2/Makefile CC=/opt/funkey-sdk/bin/arm-funkey-linux-musleabihf-gcc NOX11=1 SDL_CONFIG=/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config LDLIBS="`/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config --libs` -lpthread -lm" "DEFINES=-DFUNKEY"'}
-    runs-on: ubuntu-latest
+          #- { buildtype: 'playdate', repo: 'joyrider3774/formula1_playdate',           runs-on: 'ubuntu-latest'  output: 'formula_1',            binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: 'FORMULA1_PLAYDATE_CODEKEY', codesecretfile: 'src/codekey.h', makecommand: '"SRC_C_DIR=src/srcgame src/srcgame/scoresubmit" SCREENRESX=320 SCREENRESY=240 SCALINGMODE=0'}
+          #- { buildtype: 'playdate', repo: 'joyrider3774/checkers_playdate',           runs-on: 'ubuntu-latest'  output: 'checkers',             binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CPP_BUILD=1 SCREENRESX=320 SCREENRESY=240 SCALINGMODE=0'}
+          #- { buildtype: 'playdate', repo: 'joyrider3774/dynamate_playdate',           runs-on: 'ubuntu-latest'  output: 'dynamate',             binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CPP_BUILD=1 SCREENRESX=320 SCREENRESY=240 SCALINGMODE=0'}
+          #- { buildtype: 'playdate', repo: 'joyrider3774/blockdude_playdate',          runs-on: 'ubuntu-latest'  output: 'blockdude',            binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: ''}
+          #- { buildtype: 'playdate', repo: 'joyrider3774/puztrix_playdate',            runs-on: 'ubuntu-latest'  output: 'puztrix',              binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: 'PUZTRIX_PLAYDATE_CODEKEY',  codesecretfile: 'src/codekey.h', makecommand: '"SRC_C_DIR=src/srcgame/scoresubmit/src/playdate/C_API/scoresubmit" "SRC_CPP_DIR=src/srcgame src/srcstub/sdl_rotate src/srcstub/gfx_primitives_surface src/srcstub/bump src/srcstub/bump/src src/srcstub src/srcstub/pd_api"'}
+          #- { buildtype: 'playdate', repo: 'joyrider3774/puzzleland_playdate',         runs-on: 'ubuntu-latest'  output: 'puzzleland',           binarycopy: '',          assetscopy: '',            downloadsecret: 'PUZZLELAND_MUSIC', downloadsecretcmd: 'unzip download && mv music Source/music', codesecret: '',                          codesecretfile: '',              makecommand: '"SRC_C_DIR=src/srcgame src/srcgame/gameobjects src/srcgame/gamestates" SCREENRESX=320 SCREENRESY=240 SCALINGMODE=0'}
+          #- { buildtype: 'playdate', repo: 'joyrider3774/rubido_playdate',             runs-on: 'ubuntu-latest'  output: 'rubido',               binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: ''}
+          #- { buildtype: 'playdate', repo: 'joyrider3774/waternet_playdate',           runs-on: 'ubuntu-latest'  output: 'waternet',             binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: ''}
+          #- { buildtype: 'playdate', repo: 'joyrider3774/retrotime_playdate',          runs-on: 'ubuntu-latest'  output: 'retrotime',            binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: 'RETROTIME_PLAYDATE_CODEKEY',codesecretfile: 'src/codekey.h', makecommand: '"SRC_C_DIR=src/srcgame src/srcgame/scoresubmit src/srcgame/games"'}
+          #- { buildtype: 'vanilla',  repo: 'joyrider3774/Znax',                        runs-on: 'ubuntu-latest'  output: 'znax',                 binarycopy: 'znax',      assetscopy: 'znaxfs',      downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CXX=/opt/funkey-sdk/bin/arm-funkey-linux-musleabihf-g++ NOX11=1 SDL2CONFIG=/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config LDLIBS="`/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lSDL2 -lSDL2_gfx -lpthread -lstdc++" "DEFINES=-DFUNKEY"'}                  
+          #- { buildtype: 'vanilla',  repo: 'joyrider3774/crisp-game-lib-portable-sdl', runs-on: 'ubuntu-latest'  output: 'cglpsdl2',             binarycopy: 'cglpsdl2',  assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: '-f src/cglpSDL2/Makefile CC=/opt/funkey-sdk/bin/arm-funkey-linux-musleabihf-gcc NOX11=1 SDL_CONFIG=/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config LDLIBS="`/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config --libs` -lpthread -lm" "DEFINES=-DFUNKEY"'}
+          - { buildtype: '32blit',   repo: 'ThePythonator/Super-Square-Bros',          runs-on: 'ubuntu-20.04'   output: 'Super-Square-Bros',    binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',    makecommand: ''}  
+    runs-on: ${{ matrix.runs-on }}
     steps:
       - name: get ffmpeg
         run: |
@@ -38,7 +39,20 @@ jobs:
           sudo mv ./funkey-sdk /opt/
           cd /opt/funkey-sdk
           ./relocate-sdk.sh
-
+      
+      - if: ${{ matrix.buildtype == '32blit'}}
+        name: Checkout 32Blit sdk
+        uses: actions/checkout@v2
+        with:
+          repository: 32blit/32blit-sdk
+          path: 32blit-sdk
+      
+      - if: ${{ matrix.buildtype == '32blit'}}
+        name: setup 32blit extras
+        run: |
+          sudo apt update && sudo apt install python3-setuptools
+          pip3 install 32blit 
+          
       - if: ${{ matrix.buildtype == 'playdate'}}
         name: Checkout Playdate SDL2 Api Sources
         uses: actions/checkout@v4
@@ -79,7 +93,24 @@ jobs:
         run: |
           ${{matrix.downloadsecretcmd}}
           rm download
-     
+      
+      - if: ${{ matrix.buildtype == '32blit'}}
+        name: Create 32blit Build Environment
+        run: cmake -E make_directory ${{runner.workspace}}/main/build
+        
+      - if: ${{ matrix.buildtype == '32blit'}}  
+        name: Configure CMake 32blit
+        working-directory: ${{runner.workspace}}/main/build
+        run: |
+          cmake $GITHUB_WORKSPACE/main -DCMAKE_BUILD_TYPE=Release -DCPACK_PACKAGE_FILE_NAME=${{ matrix.output}} -D32BLIT_DIR=$GITHUB_WORKSPACE/32blit-sdk -DCMAKE_TOOLCHAIN_FILE=/opt/funkey-sdk/share/buildroot/toolchainfile.cmake
+      
+      - if: ${{ matrix.buildtype == '32blit'}}  
+        name: Build 32blit game
+        working-directory: ${{runner.workspace}}/main/build
+        shell: bash
+        run: |
+          cmake --build . --config Release
+          
       - if: ${{ matrix.buildtype == 'playdate'}}   
         name: Build Game Playdate
         run: |
@@ -118,7 +149,19 @@ jobs:
         name: copy assets
         run: |
           cp -Rf "tmp/${{ matrix.assetscopy}}" "./opk/"
-      
+     
+      - if: ${{ matrix.buildtype == '32blit'}}
+        name: Package for ${{matrix.output}} 32blit game
+        working-directory: ${{runner.workspace}}/main/build
+        run: |
+          cmake --build . --config Release --target package
+          
+      - if: ${{ matrix.buildtype == '32blit'}}
+        name: Extract Package for ${{matrix.output}} 32blit game
+        run: |
+          cd opk
+          tar -xzvf ${{runner.workspace}}/main/build/${{ matrix.output }}.tar.gz
+          
       - name: Prepare desktopfile
         run: |
           echo "[Desktop Entry]" > "./opk/${{ matrix.output }}.funkey-s.desktop"
@@ -135,7 +178,7 @@ jobs:
         run: |
           cp ./opk/metadata/icon.png ./opk/icon.png
       
-      - if: ${{ (matrix.buildtype != 'playdate') && (matrix.output != 'cglpsdl2') }}
+      - if: ${{(matrix.buildtype != '32blit') && (matrix.buildtype != 'playdate') && (matrix.output != 'cglpsdl2') }}
         name: Copy icon other games
         run: |
           cp tmp/metadata/funkey-s/icon.png ./opk/icon.png
@@ -164,13 +207,19 @@ jobs:
         run: |
           echo "./${{ matrix.output }} -r" >> "./opk/game.sh"
           chmod +x "./opk/game.sh"
+          
+      - if: ${{ matrix.buildtype == '32blit'}}
+        name: continue create game.sh for ${{matrix.output}} game
+        run: |
+          echo "./${{ matrix.output }}" >> "./opk/game.sh"
+          chmod +x "./opk/game.sh"
 
       - if: ${{ matrix.output == 'cglpsdl2'}}
         name: continue create game.sh for ${{matrix.output}} game
         run: |
           echo "./${{ matrix.output }} -f" >> "./opk/game.sh"
-          chmod +x "./opk/game.sh"
-
+          chmod +x "./opk/game.sh"      
+        
       - name: Copy SDL2 and Directfb libs and files
         run: |
           cp -r /opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/lib/lib++dfb** ./opk/lib/
