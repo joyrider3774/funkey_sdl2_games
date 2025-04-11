@@ -23,6 +23,10 @@ jobs:
           - { buildtype: '32blit',   repo: 'ThePythonator/Super-Square-Bros',            runs-on: 'ubuntu-latest',   output: 'Super-Square-Bros',    binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',    makecommand: ''}
     runs-on: ${{ matrix.runs-on }}
     steps:
+      - if:${{ matrix.buildtype == '32blit'}}
+        name: Checkout Repo
+        uses: actions/checkout@v4
+      
       - if: ${{ matrix.buildtype != '32blit'}}
         name: get ffmpeg
         run: |
@@ -47,15 +51,15 @@ jobs:
         with:
           repository: 32blit/32blit-sdk
           path: 32blit-sdk
-      
+                
       - if: ${{ matrix.buildtype == '32blit'}}
         name: setup 32blit extras
         run: |
           cd ${{runner.workspace}}
           python3 -m venv 32blit
           source ${{runner.workspace}}/32blit/bin/activate
-          pip3 install setuptools
-          pip3 install 32blit 
+          python3 -m pip install setuptools
+          python3 -m pip install 32blit 
           
       - if: ${{ matrix.buildtype == 'playdate'}}
         name: Checkout Playdate SDL2 Api Sources
@@ -107,7 +111,7 @@ jobs:
         working-directory: ${{runner.workspace}}/tmp/build
         run: |
           source ${{runner.workspace}}/32blit/bin/activate 
-          cmake $GITHUB_WORKSPACE/tmp -DCMAKE_BUILD_TYPE=Release -DCPACK_PACKAGE_FILE_NAME=${{ matrix.output}} -D32BLIT_DIR=$GITHUB_WORKSPACE/32blit-sdk -DCMAKE_TOOLCHAIN_FILE=/opt/funkey-sdk/share/buildroot/toolchainfile.cmake
+          cmake $GITHUB_WORKSPACE/tmp -DCMAKE_BUILD_TYPE=Release -DCPACK_PACKAGE_FILE_NAME=${{ matrix.output}} -D32BLIT_DIR=$GITHUB_WORKSPACE/32blit-sdk -DCMAKE_TOOLCHAIN_FILE=$GITHUB_WORKSPACE/funkey_cmake/toolchainfile.cmake -DCMAKE_MODULE_PATH=$GITHUB_WORKSPACE/funkey_cmake/
       
       - if: ${{ matrix.buildtype == '32blit'}}  
         name: Build 32blit game
@@ -127,8 +131,7 @@ jobs:
         run: |
           cd tmp
           make ${{matrix.makecommand }}
-      
-          
+           
       - name: prepare opk directory
         run: |
           mkdir opk
