@@ -49,8 +49,9 @@ jobs:
         name: Checkout 32Blit sdk
         uses: actions/checkout@v2
         with:
-          repository: 32blit/32blit-sdk
+          repository: joyrider3774/32blit-sdk
           path: 32blit-sdk
+          ref: funkey
                 
       - if: ${{ matrix.buildtype == '32blit'}}
         name: setup 32blit extras
