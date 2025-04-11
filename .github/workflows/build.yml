@@ -20,7 +20,7 @@ jobs:
           # - { buildtype: 'playdate', repo: 'joyrider3774/retrotime_playdate',          runs-on: 'ubuntu-latest',  output: 'retrotime',            binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: 'RETROTIME_PLAYDATE_CODEKEY',codesecretfile: 'src/codekey.h', makecommand: '"SRC_C_DIR=src/srcgame src/srcgame/scoresubmit src/srcgame/games"'}
           # - { buildtype: 'vanilla',  repo: 'joyrider3774/Znax',                        runs-on: 'ubuntu-latest',  output: 'znax',                 binarycopy: 'znax',      assetscopy: 'znaxfs',      downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: 'CXX=/opt/funkey-sdk/bin/arm-funkey-linux-musleabihf-g++ NOX11=1 SDL2CONFIG=/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config LDLIBS="`/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config --libs` -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lSDL2 -lSDL2_gfx -lpthread -lstdc++" "DEFINES=-DFUNKEY"'}
           # - { buildtype: 'vanilla',  repo: 'joyrider3774/crisp-game-lib-portable-sdl', runs-on: 'ubuntu-latest',  output: 'cglpsdl2',             binarycopy: 'cglpsdl2',  assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',              makecommand: '-f src/cglpSDL2/Makefile CC=/opt/funkey-sdk/bin/arm-funkey-linux-musleabihf-gcc NOX11=1 SDL_CONFIG=/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config LDLIBS="`/opt/funkey-sdk/arm-funkey-linux-musleabihf/sysroot/usr/bin/sdl2-config --libs` -lpthread -lm" "DEFINES=-DFUNKEY"'}
-          - { buildtype: '32blit',   repo: 'ThePythonator/Super-Square-Bros',          runs-on: 'ubuntu-20.04',   output: 'Super-Square-Bros',    binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',    makecommand: ''}
+          - { buildtype: '32blit',   repo: 'ThePythonator/Super-Square-Bros',            runs-on: 'ubuntu-latest',   output: 'Super-Square-Bros',    binarycopy: '',          assetscopy: '',            downloadsecret: '',                 downloadsecretcmd: '',                                        codesecret: '',                          codesecretfile: '',    makecommand: ''}
     runs-on: ${{ matrix.runs-on }}
     steps:
       - name: get ffmpeg
@@ -50,7 +50,9 @@ jobs:
       - if: ${{ matrix.buildtype == '32blit'}}
         name: setup 32blit extras
         run: |
-          sudo apt update && sudo apt install python3-setuptools
+          python3 -m venv 32blit
+          source ./32blit/bin/activate
+          pip3 install setuptools
           pip3 install 32blit 
           
       - if: ${{ matrix.buildtype == 'playdate'}}
@@ -102,6 +104,7 @@ jobs:
         name: Configure CMake 32blit
         working-directory: ${{runner.workspace}}/tmp/build
         run: |
+          source ./32blit/bin/activate 
           cmake $GITHUB_WORKSPACE/tmp -DCMAKE_BUILD_TYPE=Release -DCPACK_PACKAGE_FILE_NAME=${{ matrix.output}} -D32BLIT_DIR=$GITHUB_WORKSPACE/32blit-sdk -DCMAKE_TOOLCHAIN_FILE=/opt/funkey-sdk/share/buildroot/toolchainfile.cmake
       
       - if: ${{ matrix.buildtype == '32blit'}}  
@@ -109,11 +112,12 @@ jobs:
         working-directory: ${{runner.workspace}}/tmp/build
         shell: bash
         run: |
+          source ./32blit/bin/activate
           cmake --build . --config Release
           
       - if: ${{ matrix.buildtype == 'playdate'}}   
         name: Build Game Playdate
-        run: |
+        run: |          
           make PLATFORM=funkey-s DEFAULTSOURCEDIR=1 ${{matrix.makecommand }}
        
       - if: ${{ matrix.buildtype == 'vanilla'}}   
@@ -154,6 +158,7 @@ jobs:
         name: Package for ${{matrix.output}} 32blit game
         working-directory: ${{runner.workspace}}/tmp/build
         run: |
+          source ./32blit/bin/activate
           cmake --build . --config Release --target package
           
       - if: ${{ matrix.buildtype == '32blit'}}
