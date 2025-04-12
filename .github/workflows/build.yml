@@ -222,7 +222,7 @@ jobs:
       - if: ${{ matrix.buildtype == '32blit'}}
         name: continue create game.sh for ${{matrix.output}} game
         run: |
-          echo "./bin/${{ matrix.output }}" >> "./opk/game.sh"
+          echo "./bin/${{ matrix.output }} --fullscreen" >> "./opk/game.sh"
           chmod +x "./opk/game.sh"
 
       - if: ${{ matrix.output == 'cglpsdl2'}}
