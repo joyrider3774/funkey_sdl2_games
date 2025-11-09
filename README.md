@@ -79,3 +79,12 @@ Waternet is a multiplatform puzzle game written for old consoles and handhelds l
 
 [Game Info](https://joyrider3774.github.io/waternet_playdate) - [Download for Funkey / RG-Nano](https://github.com/joyrider3774/funkey_sdl2_games/releases/latest/download/waternet.-.Funkey-s.zip)
 
+
+---
+
+## Worm (Playdate)
+![Worm Screenshot 1](https://raw.githubusercontent.com/joyrider3774/worm_playdate/main/metadata/screenshots/screenshot1.png)
+
+Worm is a copter / worm game remake with 5 game modes and a seed system written for playdate
+
+[Game Info](https://joyrider3774.github.io/worm_playdate) - [Download for Funkey / RG-Nano](https://github.com/joyrider3774/funkey_sdl2_games/releases/latest/download/worm.-.Funkey-s.zip)
